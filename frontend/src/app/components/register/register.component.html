@@ -1,0 +1,27 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" (ngModelChange)="validatePasswords()">
+
+  <input type="text" placeholder="Nom" formControlName="name">
+  <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" style="color:red">
+    Nom requis (2-100 caractères)
+  </div>
+
+  <input type="email" placeholder="Email" formControlName="email">
+  <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" style="color:red">
+    Email invalide
+  </div>
+
+  <input type="password" placeholder="Mot de passe" formControlName="password" (input)="validatePasswords()">
+  <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" style="color:red">
+    Mot de passe requis (min 6 caractères)
+  </div>
+
+  <input type="password" placeholder="Confirmer le mot de passe" formControlName="confirmPassword" (input)="validatePasswords()">
+  <div *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched" style="color:red">
+  Les mots de passe ne correspondent pas
+</div>
+
+
+  <button type="submit">S’inscrire</button>
+
+  <p style="color:red" *ngIf="error">{{ error }}</p>
+</form>
