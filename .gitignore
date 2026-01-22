@@ -27,7 +27,7 @@ backend/bootstrap/cache/*.php
 .idea/
 .vscode/
 .DS_Store
-node_modules
+node_modules/
 # Python
 ia/__pycache__/
 ia/venv/
