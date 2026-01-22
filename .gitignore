@@ -1,24 +1,33 @@
-# OS
-.DS_Store
-Thumbs.db
-
-# ========== Laravel ==========
-backend/vendor/
-backend/node_modules/        # si tu utilises npm/yarn pour frontend dans Laravel
-backend/.env
-backend/.idea/               # si tu utilises PhpStorm
-backend/.vscode/             # si tu utilises VSCode
-backend/storage/
-backend/bootstrap/cache/
-backend/*.log
-
-# ========== Angular ==========
+# =================================
+# Node / Angular / frontend
+# =================================
 frontend/node_modules/
 frontend/dist/
-frontend/.angular/
-frontend/*.log
+frontend/out/
+frontend/package-lock.json
 frontend/.env
+frontend/.angular/
 
+# =================================
+# Laravel / backend
+# =================================
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/.phpunit.result.cache
+backend/storage/*.key
+backend/storage/logs/
+backend/storage/framework/cache/data/
+backend/bootstrap/cache/*.php
+
+# =================================
+# Root / Workspace
+# =================================
+*.log
+.idea/
+.vscode/
+.DS_Store
+node_modules
 # Python
 ia/__pycache__/
 ia/venv/
