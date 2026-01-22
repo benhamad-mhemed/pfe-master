@@ -1,1 +1,69 @@
-<p>dashboard works!</p>
+<div class="d-flex" id="dashboard">
+
+  <!-- Sidebar vertical -->
+  <nav
+    id="sidebar"
+    class="bg-dark text-white vh-100 p-3 position-fixed"
+    [ngClass]="{'d-none': !sidebarOpen}"
+    style="width: 250px; transition: all 0.3s;"
+  >
+    <div class="sidebar-header text-center mb-4">
+      <h4>Mon Dashboard</h4>
+    </div>
+
+    <ul class="nav flex-column">
+  <!-- Accueil toujours visible -->
+  <li class="nav-item mb-2">
+    <a class="nav-link text-white" routerLink="/dashboard" routerLinkActive="active">
+      <i class="bi bi-house-door-fill me-2"></i> Accueil
+    </a>
+  </li>
+
+  <!-- Profil visible seulement si connecté -->
+  <li class="nav-item mb-2" *ngIf="authService.getToken()">
+    <a class="nav-link text-white" routerLink="/profile" routerLinkActive="active">
+      <i class="bi bi-person-fill me-2"></i> Profil
+    </a>
+  </li>
+  <li class="nav-item mb-2" *ngIf="authService.getToken()">
+    <a class="nav-link text-white" routerLink="/register" routerLinkActive="active">
+      <i class="bi bi-person-fill me-2"></i> Register
+    </a>
+  </li>
+
+
+  <!-- Déconnexion visible si connecté -->
+  <li class="nav-item mb-2" *ngIf="authService.getToken()">
+    <button class="btn btn-outline-danger w-100" (click)="logout()">
+      Déconnexion
+    </button>
+  </li>
+</ul>
+
+  </nav>
+
+  <!-- Contenu principal -->
+  <div
+    id="content"
+    class="flex-grow-1 p-4"
+    [style.marginLeft.px]="sidebarOpen ? 250 : 0"
+    style="transition: margin-left 0.3s;"
+  >
+    <!-- Navbar en haut du contenu -->
+    <nav class="navbar navbar-light bg-light rounded mb-4">
+      <div class="container-fluid">
+        <!-- Hamburger toggle -->
+        <button class="btn btn-primary" type="button" (click)="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+        <span class="navbar-brand mb-0 h1">Dashboard</span>
+      </div>
+    </nav>
+
+    <!-- Contenu dynamique -->
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

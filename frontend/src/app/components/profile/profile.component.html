@@ -1,6 +1,92 @@
-<h2>Profil utilisateur</h2>
-<div *ngIf="user">
-  <p>Nom: {{ user.name }}</p>
-  <p>Email: {{ user.email }}</p>
-</div>
+<div class="container d-flex justify-content-center mt-5">
+  <div class="card shadow-sm" style="max-width: 500px; width: 100%;">
 
+    <div class="card-header text-center fw-bold">
+      <span>Profil utilisateur</span>
+     
+    </div>
+
+    <div class="card-body" *ngIf="user; else loading">
+
+      <!-- Formulaire édition -->
+      <form [formGroup]="profileForm" *ngIf="editMode; else viewMode" (ngSubmit)="updateProfile()">
+
+        <div class="mb-3">
+          <label class="form-label">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            [class.is-invalid]="profileForm.get('name')?.touched && profileForm.get('name')?.invalid"
+          />
+          <div class="invalid-feedback">
+            Nom requis (2 à 100 caractères)
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            [class.is-invalid]="profileForm.get('email')?.touched && profileForm.get('email')?.invalid"
+          />
+          <div class="invalid-feedback">
+            Email invalide
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 mt-3">
+          <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">
+            Enregistrer
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+            Annuler
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Vue lecture seule -->
+      <ng-template #viewMode>
+        <div class="mb-3">
+          <label class="form-label text-muted">Nom</label>
+          <p class="form-control-plaintext fw-semibold">{{ user.name }}</p>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-muted">Email</label>
+          <p class="form-control-plaintext">{{ user.email }}</p>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+          <button class="btn btn-outline-primary" (click)="editMode = true">
+            Modifier le profil
+          </button>
+          <button (click)="logout()" class="btn btn-outline-danger">
+            Déconnexion
+          </button>
+          <button class="btn btn-outline-success" (click)="goToDashboard()">
+             Dashboard
+      </button>
+        </div>
+        
+         
+      
+      </ng-template>
+
+      <div *ngIf="error" class="alert alert-danger mt-3">
+        {{ error }}
+      </div>
+
+    </div>
+
+    <ng-template #loading>
+      <div class="card-body text-center text-muted">
+        Chargement du profil...
+      </div>
+    </ng-template>
+
+  </div>
+</div>

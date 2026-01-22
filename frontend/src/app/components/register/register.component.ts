@@ -49,7 +49,9 @@ export class RegisterComponent {
       return true;
     }
   }
-
+goToDashboard(): void {
+  this.router.navigate(['/dashboard']);
+}
   onSubmit(): void {
     // on valide les passwords avant d'envoyer
     this.validatePasswords();

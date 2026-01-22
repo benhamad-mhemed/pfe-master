@@ -112,6 +112,32 @@ return response()->json([
 ], 404);
 }
 }
+public function updateProfile(Request $request)
+{
+    try {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2,100',
+            'email' => 'required|email|max:100|unique:users,email,' . $user->id,
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $user->update($request->only('name', 'email'));
+
+        return response()->json($user, 200);
+
+    } catch (JWTException $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Token invalid or user not found'
+        ], 401);
+    }
+}
+
 /**
 * Get the token array structure.
 *

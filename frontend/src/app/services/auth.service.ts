@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface User {
+  id?: number;
+  name: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +27,16 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, credentials);
   }
 
+  // Récupérer le profil
+  userProfile(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/user-profile`);
+  }
+
+  // Mettre à jour le profil
+  updateProfile(data: { name: string; email: string }): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/profile`, data); // ou patch<User> selon ton backend
+  }
+
   // Stockage du token
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -32,8 +48,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-  };
-   userProfile(): Observable<any> {
-  return this.http.get(`${this.baseUrl}/user-profile`);
-}
+    localStorage.removeItem('user'); // si tu stockes l’utilisateur
+  }
 }
