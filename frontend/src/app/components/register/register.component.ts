@@ -49,9 +49,10 @@ export class RegisterComponent {
       return true;
     }
   }
-goToDashboard(): void {
-  this.router.navigate(['/dashboard']);
-}
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
   onSubmit(): void {
     // on valide les passwords avant d'envoyer
     this.validatePasswords();

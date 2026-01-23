@@ -19,4 +19,8 @@ export class DashboardComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  logregister() {
+    this.authService.logout();
+    this.router.navigate(['/register']);
+  }
 }

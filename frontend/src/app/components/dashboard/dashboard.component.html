@@ -26,9 +26,9 @@
     </a>
   </li>
   <li class="nav-item mb-2" *ngIf="authService.getToken()">
-    <a class="nav-link text-white" routerLink="/register" routerLinkActive="active">
-      <i class="bi bi-person-fill me-2"></i> Register
-    </a>
+    <button class="nav-link text-white"  (click)="logregister()">
+    Register
+    </button>
   </li>
 
 
