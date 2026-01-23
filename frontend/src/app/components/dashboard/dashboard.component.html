@@ -21,9 +21,9 @@
 
   <!-- Profil visible seulement si connecté -->
   <li class="nav-item mb-2" *ngIf="authService.getToken()">
-    <a class="nav-link text-white" routerLink="/profile" routerLinkActive="active">
-      <i class="bi bi-person-fill me-2"></i> Profil
-    </a>
+    <button class="nav-link text-white"  (click)="logprofile()">
+    Profile
+    </button>
   </li>
   <li class="nav-item mb-2" *ngIf="authService.getToken()">
     <button class="nav-link text-white"  (click)="logregister()">
